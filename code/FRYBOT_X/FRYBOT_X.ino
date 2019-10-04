@@ -65,8 +65,6 @@ void setup()
     digitalWrite(IN3, LOW);
     digitalWrite(IN4, LOW);
     
-//   Serial.begin(9600);
-    
 }
 
 void loop() 
@@ -79,35 +77,83 @@ void loop()
   channel[3] = pulseIn(9,HIGH);
   channel[4] = pulseIn(1,HIGH);
   channel[5] = pulseIn(0,HIGH);
-  
-//  Serial.print("channel[0]  ");
-//  Serial.println(channel[0]);
-//  Serial.println(" ");
-//  delay(100);
-//  Serial.print("channel[1]  ");
-//  Serial.println(channel[1]);
-//  Serial.println(" ");
-//  
-//  Serial.print("channel[2]  ");
-//  Serial.println(channel[2]);
-//  Serial.println(" ");
-// 
-//  Serial.print("channel[3]  ");
-//  Serial.println(channel[3]);
-//  Serial.println(" ");
-//
-//  Serial.print("channel[4]  ");
-//  Serial.println(channel[4]);
-//  Serial.println(" ");
-//  delay(1000);
 
   if(channel[5]<1100){
-    //normal mode
-    int norm_for = map(channel[1],1450,1990,0,255);
-    int norm_back = map(channel[1],1450,1990,0,255);
-    int norm_right = map(channel[0],1450,1990,0,255);
-    int norm_left = map(channel[0],1450,1990,0,255);
     
+    //normal mode
+    
+//    int norm_for = map(channel[1],1650,1994,0,255);
+//    int norm_back = map(channel[1],1350,994,0,255);
+//    int norm_right = map(channel[0],1350,994,0,255);
+//    int norm_left = map(channel[0],1650,1994,0,255);
+
+    if(channel[1]>=1650 && channel[1]<=1994 && channel[0]>1350 && channel[0]<1650)
+      {
+            
+         int norm_for = map(channel[1],1650,1994,0,255);
+            
+         // forward
+         analogWrite(enbA, norm_for);
+         analogWrite(enbB, norm_for);
+         digitalWrite(IN1, LOW);
+         digitalWrite(IN2, HIGH);
+         digitalWrite(IN3, HIGH);
+         digitalWrite(IN4, LOW);
+      }
+    
+    else if(channel[1]>=993 && channel[1]<=1350 && channel[0]>1350 && channel[0]<1650)
+      {
+
+         int norm_back = map(channel[1],1350,993,0,255);
+         
+         // backward
+         analogWrite(enbA, norm_back);
+         analogWrite(enbB, norm_back);
+         digitalWrite(IN1, HIGH);
+         digitalWrite(IN2, LOW);
+         digitalWrite(IN3, LOW);
+         digitalWrite(IN4, HIGH);
+      }
+
+    else if(channel[0]>=993 && channel[0]<=1350 && channel[1]>1350 && channel[1]<1650)
+      {
+
+         int norm_right = map(channel[0],1350,993,0,255);
+         
+         // right
+         analogWrite(enbA, norm_right);
+         analogWrite(enbB, norm_right);
+         digitalWrite(IN1, LOW);
+         digitalWrite(IN2, HIGH);
+         digitalWrite(IN3, LOW);
+         digitalWrite(IN4, HIGH);
+      }
+      
+    else if(channel[0]>=1650 && channel[0]<=1994 && channel[1]>1350 && channel[1]<1650)
+      {
+
+         int norm_left = map(channel[0],1650,1994,0,255);
+         
+         // left
+         analogWrite(enbA, norm_left);
+         analogWrite(enbB, norm_left);
+         digitalWrite(IN1, HIGH);
+         digitalWrite(IN2, LOW);
+         digitalWrite(IN3, HIGH);
+         digitalWrite(IN4, LOW);
+      }
+
+    else
+      {
+          // stop
+          analogWrite(enbA, 0);
+          analogWrite(enbB, 0);
+          digitalWrite(IN1, LOW);
+          digitalWrite(IN2, LOW);
+          digitalWrite(IN3, LOW);
+          digitalWrite(IN4, LOW);
+      }
+      
   }
   
   else if(channel[5]>1400 && channel[5]<1500){
