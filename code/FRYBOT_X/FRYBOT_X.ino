@@ -9,29 +9,56 @@ Servo arm_base;
 
 double channel[6];
 
+const int buzzer = 13;
+const int ultrasonic = 2;
 
+//Define enable pins of the Motors
+const int enbA = 10;
+const int enbB = 11;
+
+//Define control pins of the Motors
+//If the motors rotate in the opposite direction, you can change the positions of the following pin numbers
+const int IN1 = A3;    //Right Motor (-)
+const int IN2 = A2;    //Right Motor (+)
+const int IN3 = A1;    //Left Motor (+)
+const int IN4 = A0;    //Right Motor (-)
 
 void setup() 
 {
     // put your setup code here, to run once:
-    
+
+   // receiver pins
     pinMode(3,INPUT);  //channel 1
     pinMode(5,INPUT);  //channel 2
     pinMode(6,INPUT);  //channel 3
     pinMode(9,INPUT);  //channel 4 
     pinMode(1,INPUT);  //channel 5
     pinMode(0,INPUT);  //channel 6
-    
-//  digitalWrite(LED_BUILTIN, LOW);
-  
+
+  // auxilliary functions
+    pinMode(buzzer, OUTPUT);
+    pinMode(ultrasonic, OUTPUT);
+    digitalWrite(buzzer, LOW);  //buzzer
+    digitalWrite(ultrasonic, LOW);   //ultrasonic sensor
+
+   // servo pins
     cam_top.attach(4);
     cam_base.attach(12);
     arm_grip.attach(7);
     arm_wrist.attach(8);
     arm_elbow.attach(A5);
     arm_base.attach(A4);
+
+   // Define the motor pins as OUTPUT
+    pinMode(enbA, OUTPUT);
+    pinMode(enbB, OUTPUT);
+    pinMode(IN1, OUTPUT);
+    pinMode(IN2, OUTPUT);
+    pinMode(IN3, OUTPUT);
+    pinMode(IN4, OUTPUT);
     
-    //Serial.begin(9600);
+   //Serial.begin(9600);
+    
 }
 
 void loop() 
