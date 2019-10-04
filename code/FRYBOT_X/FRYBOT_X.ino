@@ -7,20 +7,23 @@ Servo arm_wrist;
 Servo arm_elbow;
 Servo arm_base;
 
-double channel[6];
+int channel[6];
 
 const int buzzer = 13;
 const int ultrasonic = 2;
 
+//Define variable for the motors speeds
+int RightSpd = 130;
+int LeftSpd = 130;
+
 //Define enable pins of the Motors
-const int enbA = 10;
+const int enbA = 3;
 const int enbB = 11;
 
 //Define control pins of the Motors
-//If the motors rotate in the opposite direction, you can change the positions of the following pin numbers
-const int IN1 = A3;    //Right Motor (-)
-const int IN2 = A2;    //Right Motor (+)
-const int IN3 = A1;    //Left Motor (+)
+const int IN1 = A3;    //Left Motor (-)
+const int IN2 = A2;    //Left Motor (+)
+const int IN3 = A1;    //Right Motor (+)
 const int IN4 = A0;    //Right Motor (-)
 
 void setup() 
@@ -28,14 +31,14 @@ void setup()
     // put your setup code here, to run once:
 
    // receiver pins
-    pinMode(3,INPUT);  //channel 1
-    pinMode(5,INPUT);  //channel 2
-    pinMode(6,INPUT);  //channel 3
-    pinMode(9,INPUT);  //channel 4 
-    pinMode(1,INPUT);  //channel 5
-    pinMode(0,INPUT);  //channel 6
+    pinMode(10,INPUT);  //channel 1
+    pinMode(5,INPUT);   //channel 2
+    pinMode(6,INPUT);   //channel 3
+    pinMode(9,INPUT);   //channel 4 
+    pinMode(1,INPUT);   //channel 5
+    pinMode(0,INPUT);   //channel 6
 
-  // auxilliary functions
+   // auxilliary functions
     pinMode(buzzer, OUTPUT);
     pinMode(ultrasonic, OUTPUT);
     digitalWrite(buzzer, LOW);  //buzzer
@@ -57,7 +60,12 @@ void setup()
     pinMode(IN3, OUTPUT);
     pinMode(IN4, OUTPUT);
     
-   //Serial.begin(9600);
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, LOW);
+    
+//   Serial.begin(9600);
     
 }
 
@@ -65,7 +73,7 @@ void loop()
 {
   // put your main code here, to run repeatedly:
   
-  channel[0] = pulseIn(3,HIGH);
+  channel[0] = pulseIn(10,HIGH);
   channel[1] = pulseIn(5,HIGH);
   channel[2] = pulseIn(6,HIGH);
   channel[3] = pulseIn(9,HIGH);
@@ -93,18 +101,31 @@ void loop()
 //  Serial.println(" ");
 //  delay(1000);
 
-  if(channel[5]>970 && channel[5]<1100){
+  if(channel[5]<1100){
     //normal mode
+    int norm_for = map(channel[1],1450,1990,0,255);
+    int norm_back = map(channel[1],1450,1990,0,255);
+    int norm_right = map(channel[0],1450,1990,0,255);
+    int norm_left = map(channel[0],1450,1990,0,255);
+    
   }
   
   else if(channel[5]>1400 && channel[5]<1500){
     //ultrasonic sensor mode
   }
-  else if(channel[5]>1900 && channel[5]<2000){
+  else if(channel[5]>1850){
     //gripping mode
   }
   else {
     //error
   }
+
+//      // back
+//      analogWrite(enbA, LeftSpd);
+//      analogWrite(enbB, RightSpd);
+//      digitalWrite(IN1, HIGH);
+//      digitalWrite(IN2, LOW);
+//      digitalWrite(IN3, LOW);
+//      digitalWrite(IN4, HIGH);
   
 }
