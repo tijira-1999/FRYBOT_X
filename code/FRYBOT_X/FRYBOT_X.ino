@@ -198,6 +198,29 @@ void loop()
 
     digitalWrite(ultrasonic, HIGH);   //ultrasonic sensor ON
 
+   //camera 
+    int ultra_cam_top = map(channel[2],994,1986,48,150);
+    int ultra_cam_base = map(channel[3],994,1986,0,163);
+    
+    cam_top.write(ultra_cam_top);
+    cam_base.write(ultra_cam_base);
+
+
+   // gripper
+    int ultra_grip = map(channel[4],993,1986,180,0);
+    arm_grip.write(ultra_grip);
+
+
+   //buzzer
+    if(channel[4]<=1010)
+    {
+      digitalWrite(buzzer, HIGH);  //buzzer on
+    }
+    else
+    {
+      digitalWrite(buzzer, LOW);  //buzzer off
+    }
+
     if(channel[1]>=1650 && channel[1]<=1994 && channel[0]>1350 && channel[0]<1650)
       {
             
@@ -269,19 +292,58 @@ void loop()
   }
 
   
-  else if(channel[5]>1850){
+  else if(channel[5]>1850)
+  {
     //gripping mode
+
+    digitalWrite(ultrasonic, LOW);   //ultrasonic sensor off
+    cam_top.write(110);              // position camera top servo to center
+    
+   //camera 
+    // only camera base can be moved in this mode
+    int grip_cam_base = map(channel[3],994,1986,0,163);
+    
+    cam_base.write(grip_cam_base);
+
+   // gripper
+    int grip_grip = map(channel[4],993,1986,180,0);
+    arm_grip.write(grip_grip);
+
+
+   //buzzer
+    if(channel[4]<=1010)
+    {
+      digitalWrite(buzzer, HIGH);  //buzzer on
+    }
+    else
+    {
+      digitalWrite(buzzer, LOW);  //buzzer off
+    }
+
+    // arm movement
+    
+     int grip_wrist = map(channel[0],993,1987,0,180);
+     int grip_elbow = map(channel[2],993,1987,179,0);
+     int grip_base = map(channel[1],1500,993,3,118);
+
+     arm_wrist.write(grip_wrist);
+     arm_elbow.write(grip_elbow);
+     arm_base.write(grip_base);
+    
+    // stop the car
+     analogWrite(enbA, 0);
+     analogWrite(enbB, 0);
+     digitalWrite(IN1, LOW);
+     digitalWrite(IN2, LOW);
+     digitalWrite(IN3, LOW);
+     digitalWrite(IN4, LOW);
   }
-  else {
+
+  
+  else 
+  {
     //error
   }
 
-//      // back
-//      analogWrite(enbA, LeftSpd);
-//      analogWrite(enbB, RightSpd);
-//      digitalWrite(IN1, HIGH);
-//      digitalWrite(IN2, LOW);
-//      digitalWrite(IN3, LOW);
-//      digitalWrite(IN4, HIGH);
   
 }
