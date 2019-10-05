@@ -1,4 +1,11 @@
 #include <Servo.h>
+#include <pitches.h> //add note library
+
+//notes in the melody
+int melody[]={NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
+
+//note durations. 4=quarter note / 8=eighth note
+int noteDurations[]={4, 8, 8, 4, 4, 4, 4, 4};
 
 Servo cam_top;
 Servo cam_base;
@@ -25,8 +32,24 @@ const int IN4 = A0;    //Right Motor (-)
 
 void setup() 
 {
-    // put your setup code here, to run once:
+   // put your setup code here, to run once:
+   
+   //startup initiates wait for 2 seconds henceforth
+    for (int thisNote=0; thisNote <8; thisNote++)
+     {
+      //to calculate the note duration, take one second. Divided by the note type
+      int noteDuration = 1000 / noteDurations [thisNote];
+      tone(buzzer, melody [thisNote], noteDuration);
 
+      //to distinguish the notes, set a minimum time between them
+      //the note's duration +30% seems to work well
+      int pauseBetweenNotes = noteDuration * 1.30;
+      delay(pauseBetweenNotes);
+
+      //stop the tone playing
+      noTone(buzzer);
+     }
+   
    // receiver pins
     pinMode(10,INPUT);  //channel 1
     pinMode(5,INPUT);   //channel 2
@@ -70,7 +93,12 @@ void setup()
     digitalWrite(IN2, LOW);
     digitalWrite(IN3, LOW);
     digitalWrite(IN4, LOW);
-    
+
+   //startup complete
+    digitalWrite(buzzer, HIGH);
+    delay(500);
+    digitalWrite(buzzer, LOW);
+    delay(100);
 }
 
 void loop() 
