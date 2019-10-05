@@ -52,6 +52,15 @@ void setup()
     arm_elbow.attach(A5);
     arm_base.attach(A4);
 
+   // servo initial position
+    cam_top.write(110);
+    cam_base.write(100);
+    arm_grip.write(90);
+    arm_wrist.write(84);
+    arm_elbow.write(179);
+    arm_base.write(3);
+    delay(1000);
+
    // Define the motor pins as OUTPUT
     pinMode(enbA, OUTPUT);
     pinMode(enbB, OUTPUT);
