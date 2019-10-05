@@ -90,13 +90,11 @@ void loop()
   if(channel[5]<1100)
   { 
    //normal mode
-    
-    //   int norm_for = map(channel[1],1650,1994,0,255);
-    //   int norm_back = map(channel[1],1350,994,0,255);
-    //   int norm_right = map(channel[0],1350,994,0,255);
-    //   int norm_left = map(channel[0],1650,1994,0,255);
 
     digitalWrite(ultrasonic, LOW);   //ultrasonic sensor off
+    arm_wrist.write(84);
+    arm_elbow.write(179);
+    arm_base.write(3);
 
    //camera 
     int norm_cam_top = map(channel[2],994,1986,48,150);
@@ -197,6 +195,9 @@ void loop()
    //ultrasonic sensor mode
 
     digitalWrite(ultrasonic, HIGH);   //ultrasonic sensor ON
+    arm_wrist.write(84);
+    arm_elbow.write(179);
+    arm_base.write(3);
 
    //camera 
     int ultra_cam_top = map(channel[2],994,1986,48,150);
@@ -322,9 +323,9 @@ void loop()
 
     // arm movement
     
-     int grip_wrist = map(channel[0],993,1987,0,180);
+     int grip_wrist = map(channel[0],1994,993,0,180);
      int grip_elbow = map(channel[2],993,1987,179,0);
-     int grip_base = map(channel[1],1500,993,3,118);
+     int grip_base = map(channel[1],1500,1994,3,118);
 
      arm_wrist.write(grip_wrist);
      arm_elbow.write(grip_elbow);
