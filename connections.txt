@@ -38,3 +38,38 @@ IN2 - 0
 
 Servo Positions
 
+ARM
+
+base 
+    initial - 3 degrees
+    top - 3 degrees
+    down - 118 degrees
+
+elbow 
+    initial - 179 degrees
+    top - 179 degrees
+    down - 0 degrees
+
+wrist 
+    initial - 84 degrees
+    left - 0 degrees
+    right - 180 degrees
+
+gripper
+    initial - 90 degrees
+    open - 0 degrees
+    hold - 180 degrees
+
+
+CAMERA
+
+base 
+    initial - 100 degrees
+    right - 0 degrees
+    left - 163 degrees
+
+top 
+    initial - 110 degrees
+    top - 48 degrees
+    down 150 degrees
+
