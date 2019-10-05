@@ -73,3 +73,29 @@ top
     top - 48 degrees
     down 150 degrees
 
+
+CAR
+
+channel 0 
+    right (1350 - 993)
+    left (1650 - 1987)
+    center (1485 - 1495) (BOTH)
+
+channel 1
+    forward (1650 - 1993)
+    backward (1350 - 994)
+
+channel 5
+    buzzer (<1010)
+
+
+
+
+PWM inputs
+
+channel 0 - right & left                       (994 - 1986)
+channel 1 - forward & backward                 (1987 - 994)
+channel 3 - camera top servo & (arm elbow)     (994 - 1986)
+channel 4 - camera base servo                  (1986 - 998)
+channel 5 - gripper & buzzer (VRA knob)        (993 - 1986)
+channel 6 - mode switch (SWC # 3 Positions)    (<=994   1487-1494   >=1987)
