@@ -1,0 +1,40 @@
+ARDUINO PINS
+
+0  - channel 6 (pwm input)
+1  - channel 5 (pwm input)
+2  - ultrasonic trigger
+3  - enbA
+4  - camera top servo
+5  - channel 2 (pwm input)
+6  - channel 3 (pwm input)
+7  - arm gripper servo
+8  - arm wrist servo
+9  - channel 4 (pwm input)
+10 - channel 1 (pwm input)
+11 - enbB
+12 - camera base servo
+13 - Buzzer & LED
+A0 - IN4 (MOTOR PINS)
+A1 - IN3 (MOTOR PINS)
+A2 - IN2 (MOTOR PINS)
+A3 - IN1 (MOTOR PINS)
+A4 - arm base servo
+A5 - arm elbow servo
+A6 - 
+A7 - 
+
+
+
+INFO
+
+Right wheels (back)
+IN3 - 0
+IN4 - 1
+
+Left wheels (back)
+IN1 - 1
+IN2 - 0
+
+
+Servo Positions
+
