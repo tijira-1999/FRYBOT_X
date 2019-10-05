@@ -12,9 +12,6 @@ int channel[6];
 const int buzzer = 13;
 const int ultrasonic = 2;
 
-//Define variable for the motors speeds
-int RightSpd = 130;
-int LeftSpd = 130;
 
 //Define enable pins of the Motors
 const int enbA = 3;
@@ -98,7 +95,7 @@ void loop()
 
    //camera 
     int norm_cam_top = map(channel[2],994,1986,48,150);
-    int norm_cam_base = map(channel[3],994,1986,0,163);
+    int norm_cam_base = map(channel[3],1986,994,0,163);
     
     cam_top.write(norm_cam_top);
     cam_base.write(norm_cam_base);
@@ -201,7 +198,7 @@ void loop()
 
    //camera 
     int ultra_cam_top = map(channel[2],994,1986,48,150);
-    int ultra_cam_base = map(channel[3],994,1986,0,163);
+    int ultra_cam_base = map(channel[3],1986,994,0,163);
     
     cam_top.write(ultra_cam_top);
     cam_base.write(ultra_cam_base);
@@ -302,7 +299,7 @@ void loop()
     
    //camera 
     // only camera base can be moved in this mode
-    int grip_cam_base = map(channel[3],994,1986,0,163);
+    int grip_cam_base = map(channel[3],1986,994,0,163);
     
     cam_base.write(grip_cam_base);
 
@@ -324,8 +321,8 @@ void loop()
     // arm movement
     
      int grip_wrist = map(channel[0],1994,993,0,180);
-     int grip_elbow = map(channel[2],993,1987,179,0);
-     int grip_base = map(channel[1],1500,1994,3,118);
+     int grip_elbow = map(channel[2],993,1987,177,0);    //177 instead of 179 to reduce jitters
+     int grip_base = map(channel[1],1500,1994,5,118);    //5 instead of 3 to reduce jitters
 
      arm_wrist.write(grip_wrist);
      arm_elbow.write(grip_elbow);

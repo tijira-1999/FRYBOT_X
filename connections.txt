@@ -99,3 +99,31 @@ channel 3 - camera top servo & (arm elbow)     (994 - 1986)
 channel 4 - camera base servo                  (1986 - 998)
 channel 5 - gripper & buzzer (VRA knob)        (993 - 1986)
 channel 6 - mode switch (SWC # 3 Positions)    (<=994   1487-1494   >=1987)
+
+
+NOTE:  BE CAREFUL TO PLACE THE STICKS TO NORMAL BEFORE SWITCHING MODES
+
+TRANSMITTER SETUP
+
+TYPE SELECT - AIRPLANE OR GLIDER
+
+MODEL SELECT - FRYBOT!!
+ CH1 - REVERSE
+ CH2 - NORMAL
+ CH3 - NORMAL
+ CH4 - NORMAL
+ CH5 - NORMAL
+ CH6 - NORMAL
+
+AUX CHANNELS 
+ channel 5 - VrA
+ CHANNEL 6 - SwC
+
+RX SETUP
+    FAILSAFE
+        channel 1 - 0%
+        channel 2 - 0%
+        channel 3 - -100%
+        channel 4 - 0%
+        channel 5 - 0%
+        channel 6 - -100%

@@ -7,7 +7,7 @@ void setup() {
     pinMode(5,INPUT);   //channel 2
     pinMode(6,INPUT);   //channel 3
     pinMode(9,INPUT);   //channel 4 
-    pinMode(1,INPUT);   //channel 5
+//    pinMode(1,INPUT);   //channel 5
     pinMode(0,INPUT);   //channel 6
 
     Serial.begin(9600);
@@ -22,7 +22,7 @@ void loop()
   channel[1] = pulseIn(5,HIGH);
   channel[2] = pulseIn(6,HIGH);
   channel[3] = pulseIn(9,HIGH);
-  channel[4] = pulseIn(1,HIGH);
+//  channel[4] = pulseIn(1,HIGH);
   channel[5] = pulseIn(0,HIGH);
   
   Serial.print("channel[0]  ");
