@@ -87,21 +87,48 @@ void loop()
   channel[4] = pulseIn(1,HIGH);
   channel[5] = pulseIn(0,HIGH);
 
-  if(channel[5]<1100){
+  if(channel[5]<1100)
+  { 
+   //normal mode
     
-    //normal mode
-    
-//    int norm_for = map(channel[1],1650,1994,0,255);
-//    int norm_back = map(channel[1],1350,994,0,255);
-//    int norm_right = map(channel[0],1350,994,0,255);
-//    int norm_left = map(channel[0],1650,1994,0,255);
+    //   int norm_for = map(channel[1],1650,1994,0,255);
+    //   int norm_back = map(channel[1],1350,994,0,255);
+    //   int norm_right = map(channel[0],1350,994,0,255);
+    //   int norm_left = map(channel[0],1650,1994,0,255);
 
+    digitalWrite(ultrasonic, LOW);   //ultrasonic sensor off
+
+   //camera 
+    int norm_cam_top = map(channel[2],994,1986,48,150);
+    int norm_cam_base = map(channel[3],994,1986,0,163);
+    
+    cam_top.write(norm_cam_top);
+    cam_base.write(norm_cam_base);
+
+
+   // gripper
+    int norm_grip = map(channel[4],993,1986,180,0);
+    arm_grip.write(norm_grip);
+
+
+   //buzzer
+    if(channel[4]<=1010)
+    {
+      digitalWrite(buzzer, HIGH);  //buzzer on
+    }
+    else
+    {
+      digitalWrite(buzzer, LOW);  //buzzer off
+    }
+
+    
+   // car
     if(channel[1]>=1650 && channel[1]<=1994 && channel[0]>1350 && channel[0]<1650)
       {
             
          int norm_for = map(channel[1],1650,1994,0,255);
             
-         // forward
+        // forward
          analogWrite(enbA, norm_for);
          analogWrite(enbB, norm_for);
          digitalWrite(IN1, LOW);
@@ -115,7 +142,7 @@ void loop()
 
          int norm_back = map(channel[1],1350,993,0,255);
          
-         // backward
+        // backward
          analogWrite(enbA, norm_back);
          analogWrite(enbB, norm_back);
          digitalWrite(IN1, HIGH);
@@ -129,7 +156,7 @@ void loop()
 
          int norm_right = map(channel[0],1350,993,0,255);
          
-         // right
+        // right
          analogWrite(enbA, norm_right);
          analogWrite(enbB, norm_right);
          digitalWrite(IN1, LOW);
@@ -143,7 +170,7 @@ void loop()
 
          int norm_left = map(channel[0],1650,1994,0,255);
          
-         // left
+        // left
          analogWrite(enbA, norm_left);
          analogWrite(enbB, norm_left);
          digitalWrite(IN1, HIGH);
@@ -154,7 +181,7 @@ void loop()
 
     else
       {
-          // stop
+         // stop
           analogWrite(enbA, 0);
           analogWrite(enbB, 0);
           digitalWrite(IN1, LOW);
@@ -165,9 +192,83 @@ void loop()
       
   }
   
-  else if(channel[5]>1400 && channel[5]<1500){
-    //ultrasonic sensor mode
+  else if(channel[5]>1400 && channel[5]<1500)
+  {
+   //ultrasonic sensor mode
+
+    digitalWrite(ultrasonic, HIGH);   //ultrasonic sensor ON
+
+    if(channel[1]>=1650 && channel[1]<=1994 && channel[0]>1350 && channel[0]<1650)
+      {
+            
+         int ultra_for = map(channel[1],1650,1994,0,255);
+            
+        // forward
+         analogWrite(enbA, ultra_for);
+         analogWrite(enbB, ultra_for);
+         digitalWrite(IN1, LOW);
+         digitalWrite(IN2, HIGH);
+         digitalWrite(IN3, HIGH);
+         digitalWrite(IN4, LOW);
+      }
+    
+    else if(channel[1]>=993 && channel[1]<=1350 && channel[0]>1350 && channel[0]<1650)
+      {
+
+         int ultra_back = map(channel[1],1350,993,0,255);
+         
+        // backward
+         analogWrite(enbA, ultra_back);
+         analogWrite(enbB, ultra_back);
+         digitalWrite(IN1, HIGH);
+         digitalWrite(IN2, LOW);
+         digitalWrite(IN3, LOW);
+         digitalWrite(IN4, HIGH);
+      }
+
+    else if(channel[0]>=993 && channel[0]<=1350 && channel[1]>1350 && channel[1]<1650)
+      {
+
+         int ultra_right = map(channel[0],1350,993,0,255);
+         
+        // right
+         analogWrite(enbA, ultra_right);
+         analogWrite(enbB, ultra_right);
+         digitalWrite(IN1, LOW);
+         digitalWrite(IN2, HIGH);
+         digitalWrite(IN3, LOW);
+         digitalWrite(IN4, HIGH);
+      }
+      
+    else if(channel[0]>=1650 && channel[0]<=1994 && channel[1]>1350 && channel[1]<1650)
+      {
+
+         int ultra_left = map(channel[0],1650,1994,0,255);
+         
+        // left
+         analogWrite(enbA, ultra_left);
+         analogWrite(enbB, ultra_left);
+         digitalWrite(IN1, HIGH);
+         digitalWrite(IN2, LOW);
+         digitalWrite(IN3, HIGH);
+         digitalWrite(IN4, LOW);
+      }
+
+    else
+      {
+         // stop
+          analogWrite(enbA, 0);
+          analogWrite(enbB, 0);
+          digitalWrite(IN1, LOW);
+          digitalWrite(IN2, LOW);
+          digitalWrite(IN3, LOW);
+          digitalWrite(IN4, LOW);
+      }
+      
+      
   }
+
+  
   else if(channel[5]>1850){
     //gripping mode
   }
